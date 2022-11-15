@@ -15,8 +15,9 @@ public class VpnConnection {
     private static final By pageNotFoundMessageLocator =
             new By.ByXPath(".//div//h1[contains(text(), '404')]");
 
-    public static boolean verifyPageContents(String pageUrl, WebDriversManager myDriver) {
+    public static boolean verifyPageResponse(String pageUrl, WebDriversManager myDriver) {
         myDriver.getDriver().get(pageUrl);
+        myDriver.getDriver().manage().window().maximize();
         try {
             myDriver.getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(pageNotFoundMessageLocator));
             return true;

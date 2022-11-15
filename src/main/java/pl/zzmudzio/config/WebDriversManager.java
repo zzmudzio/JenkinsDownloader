@@ -17,7 +17,8 @@ public class WebDriversManager {
             this.driverWait = new WebDriverWait(this.driver, Duration.ofSeconds(waitDuration));
         }
         else {
-            System.out.println("Błąd: podano nieprawidłową nazwę sterownika.");
+            System.out.println(StatusColors.ERROR.getAnsiCode() +"Błąd: " + StatusColors.RESET.getAnsiCode() +
+                    "podano nieprawidłową nazwę sterownika.");
         }
     }
 
