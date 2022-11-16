@@ -26,15 +26,16 @@ public class Main {
         WebDriversManager myDriver = new WebDriversManager("chrome", 2);
         if (VpnConnection.verifyPageResponse(_args[2], myDriver)
                 || !JenkinsLoginPage.logIntoJenkins(myDriver, _args[0], _args[1])
-                || !JenkinsMainPage.goToDesiredCategory(myDriver)) {
+                || !JenkinsMainPage.goToDesiredCategory(myDriver)
+                || !JenkinsJobPage.downloadLastArtifact(myDriver, "Wrodz")) {
             System.out.println(StatusColors.ERROR.getAnsiCode() + "Błąd: " + StatusColors.RESET.getAnsiCode() +
-                    "Nie udało się połączyć z aplikacją. Sprawdź połączenie z VPN i poprawność danych " +
+                    "Nie udało się pobrać aplikacji. Sprawdź połączenie z VPN i poprawność danych " +
                     "autoryzacyjnych. Aplikacja zostanie zamknięta za 3 sekundy.");
             Thread.sleep(3000);
             myDriver.quitDriver();
             System.exit(1);
         }
-        JenkinsMainPage.goToAppPage(myDriver, "Wgos1");
-        JenkinsJobPage.downloadLastArtifact(myDriver);
+        System.out.println(StatusColors.SUCCESS.getAnsiCode() + "Sukces:" + StatusColors.RESET.getAnsiCode()+
+                        " pomyślnie pobrano plik");
     }
 }

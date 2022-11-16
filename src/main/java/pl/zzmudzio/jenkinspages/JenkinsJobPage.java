@@ -8,7 +8,8 @@ import pl.zzmudzio.config.WebDriversManager;
 
 public class JenkinsJobPage {
     private static final By lastArtifactLocator = new By.ByXPath(".//table[@class='fileList']//td[2]/a[1]");
-    public static boolean downloadLastArtifact(WebDriversManager myDriver) {
+    public static boolean downloadLastArtifact(WebDriversManager myDriver, String appName) {
+        JenkinsMainPage.goToAppPage(myDriver, appName);
         try {
             myDriver.getDriverWait().until(ExpectedConditions.elementToBeClickable(lastArtifactLocator));
             myDriver.getDriver().findElement(lastArtifactLocator).click();
