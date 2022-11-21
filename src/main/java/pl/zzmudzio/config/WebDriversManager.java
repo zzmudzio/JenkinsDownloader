@@ -16,8 +16,7 @@ public class WebDriversManager {
     public WebDriversManager(String driverType, int waitDuration) {
         if(driverType.equals("chrome")) {
             System.setProperty("webdriver.chrome.driver", ENV_VAR_CHROMEDRIVER_PATH);
-            Map<String, Object> prefs = new HashMap<String, Object>();
-            prefs.put("download.default_directory", "C:\\Users\\m.zmuda-trzebia\\Desktop");
+            Map<String, Object> prefs = new HashMap<>();
             prefs.put("download.prompt_for_download", false);
             prefs.put("download.extensions_to_open", "application/xml");
             prefs.put("safebrowsing.enabled", true);
@@ -26,6 +25,10 @@ public class WebDriversManager {
             options.addArguments("start-maximized");
             options.addArguments("--safebrowsing-disable-download-protection");
             options.addArguments("safebrowsing-disable-extension-blacklist");
+            /*
+                I've added above options to avoid a warning message that appears when selenium is trying to
+                download something.
+             */
             this.driver = new ChromeDriver(options);
             this.driverWait = new WebDriverWait(this.driver, Duration.ofSeconds(waitDuration));
         }
