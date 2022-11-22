@@ -7,7 +7,6 @@ import pl.zzmudzio.config.VpnConnection;
 import pl.zzmudzio.config.WebDriversManager;
 import pl.zzmudzio.jenkinspages.JenkinsMainPage;
 import pl.zzmudzio.operations.AppFile;
-
 import java.util.Scanner;
 
 
