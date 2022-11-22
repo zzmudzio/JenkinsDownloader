@@ -1,0 +1,8 @@
+<suite name="Jenkins Downloader Testing">
+    <test name="Config classes testing." >
+        <classes>
+            <class name="pl.zmudzio.tests.positive.config.StatusColorsTest" />
+            <class name="pl.zmudzio.tests.positive.config.VpnConnectionTest" />
+        </classes>
+    </test>
+</suite>

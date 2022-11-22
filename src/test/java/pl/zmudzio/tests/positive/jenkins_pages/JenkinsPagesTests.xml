@@ -1,0 +1,8 @@
+<suite name="Jenkins Downloader Testing">
+    <test name="Config classes testing." >
+        <classes>
+            <!-- <class name=""/>
+            <class name=""/> -->
+        </classes>
+    </test>
+</suite>
