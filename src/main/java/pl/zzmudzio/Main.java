@@ -24,11 +24,15 @@ public class Main {
            args[1] = password
            args[2] = jenkins page address
            args[3] = app that user want to download(jenkins job name)
-         */
 
-        System.out.println("Podaj dane logowania(login;haslo;adres;aplikacja): ");
-        Scanner credentials = new Scanner(System.in);
-        args = credentials.nextLine().split(";");
+           I am the only user of this app hence the below validation of args elements is not very sophisticated ;-)
+
+         */
+        while(args.length < 4) {
+            System.out.println("Podaj dane logowania(login;haslo;adres;aplikacja): ");
+            Scanner credentials = new Scanner(System.in);
+            args = credentials.nextLine().split(";");
+        }
         WebDriversManager myDriver = new WebDriversManager("chrome", 2);
         String artifactName = "unknown";
         if (VpnConnection.verifyPageResponse(args[2], myDriver)
