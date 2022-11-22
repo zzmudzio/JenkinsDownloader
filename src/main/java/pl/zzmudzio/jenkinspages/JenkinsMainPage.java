@@ -9,8 +9,7 @@ import pl.zzmudzio.config.StatusColors;
 import pl.zzmudzio.config.WebDriversManager;
 
 public class JenkinsMainPage {
-    private final static By desiredAppCategoryLocator = new By.ByXPath(".//div[@id='projectstatus-tabBar']" +
-            "/div/div/div[5]/a[text()='SAWA']");
+    private final static By desiredAppCategoryLocator = new By.ByXPath(".//a[text()='SAWA']");
     // user's choice will be appended to @id='job_.."
 
     public static boolean goToDesiredCategory(WebDriversManager myDriver) {
@@ -20,6 +19,7 @@ public class JenkinsMainPage {
             return true;
         }
         catch(TimeoutException | NotFoundException tenfe) {
+            tenfe.printStackTrace();
             return false;
         }
     }
@@ -33,7 +33,19 @@ public class JenkinsMainPage {
             return myDriver.getDriver().findElement(applicationLocator);
         }
         catch(TimeoutException | NotFoundException tenfe) {
-            return null;
+            try {
+                /*
+                most of the jobs names have a structure of job_Appname, but in case of
+                job_appname(lowercase) this should be also verified, before throwing an exception
+                 */
+                By applicationLocator = new By.ByXPath(".//table[@id='projectstatus']" +
+                        "/tbody/tr[@id='job_" + appName.toLowerCase() + "']/td[3]/a");
+                myDriver.getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(applicationLocator));
+                return myDriver.getDriver().findElement(applicationLocator);
+            }
+            catch(TimeoutException | NotFoundException tenfe2) {
+                return null;
+            }
         }
     }
 

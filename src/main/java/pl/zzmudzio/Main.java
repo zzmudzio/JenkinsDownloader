@@ -8,6 +8,8 @@ import pl.zzmudzio.config.WebDriversManager;
 import pl.zzmudzio.jenkinspages.JenkinsMainPage;
 import pl.zzmudzio.operations.AppFile;
 
+import java.util.Scanner;
+
 
 /*
 Jenkins page address, credentials such as user login, password and desired app will be
@@ -21,18 +23,20 @@ public class Main {
            args[0] = login,
            args[1] = password
            args[2] = jenkins page address
-           args[3] = app that user want to download
+           args[3] = app that user want to download(jenkins job name)
          */
 
-        String[] _args = new String[]{"","","", ""}; //temporary way to store credentials
+        System.out.println("Podaj dane logowania(login;haslo;adres;aplikacja): ");
+        Scanner credentials = new Scanner(System.in);
+        args = credentials.nextLine().split(";");
         WebDriversManager myDriver = new WebDriversManager("chrome", 2);
         String artifactName = "unknown";
-        if (VpnConnection.verifyPageResponse(_args[2], myDriver)
-                || !JenkinsLoginPage.logIntoJenkins(myDriver, _args[0], _args[1])
+        if (VpnConnection.verifyPageResponse(args[2], myDriver)
+                || !JenkinsLoginPage.logIntoJenkins(myDriver, args[0], args[1])
                 || !JenkinsMainPage.goToDesiredCategory(myDriver)
-                || ((artifactName = JenkinsJobPage.downloadLastArtifact(myDriver, _args[3])) == null)) {
+                || ((artifactName = JenkinsJobPage.downloadLastArtifact(myDriver, args[3])) == null)) {
             System.out.println(StatusColors.ERROR.getAnsiCode() + "Błąd: " + StatusColors.RESET.getAnsiCode() +
-                    "Nie udało się pobrać aplikacji: " + _args[3] +". Sprawdź połączenie z VPN i poprawność danych " +
+                    "Nie udało się pobrać aplikacji: " + args[3] +". Sprawdź połączenie z VPN i poprawność danych " +
                     "autoryzacyjnych. Aplikacja zostanie zamknięta za 3 sekundy.");
         }
         else {
@@ -42,7 +46,8 @@ public class Main {
         }
         Thread.sleep(7000);
         myDriver.quitDriver();
-        //AppFile.unzipFile(artifactName);
+        AppFile.unzipFile(artifactName, args[3]);
+        AppFile.saveVersionInXml(artifactName);
         System.exit(0);
     }
 }

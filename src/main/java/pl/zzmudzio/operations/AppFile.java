@@ -1,5 +1,7 @@
 package pl.zzmudzio.operations;
 
+import pl.zzmudzio.config.StatusColors;
+
 import java.io.IOException;
 
 public class AppFile {
@@ -11,18 +13,38 @@ public class AppFile {
     */
 
     private static final String DOWNLOAD_PATH = System.getProperty("user.home")+"\\Downloads\\";
-    public static int unzipFile(String fileName, String unzipPath) {
+    private static final String UNZIP_PATH = "C:\\Currenda\\";
+    public static int unzipFile(String artifactName, String jenkinsJobName) {
         ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c","7z x " + DOWNLOAD_PATH + "\\" +
-                fileName + " -o"+DOWNLOAD_PATH+"\\test\\ -y");
+                artifactName + " -o"+UNZIP_PATH+jenkinsJobName+"\\ -y");
         int processResult = 0;
         try {
             Process myProcess = builder.start();
             myProcess.waitFor();
             processResult = myProcess.exitValue();
+            System.out.println();
         }
         catch(IOException | InterruptedException ie) {
-            System.out.println("Błąd: wystąpił błąd podczas próby uruchomienia procesu cmd.exe");
+            System.out.println(StatusColors.ERROR.getAnsiCode() + "Błąd: " + StatusColors.RESET.getAnsiCode()
+                    + " wystąpił błąd podczas próby uruchomienia procesu cmd.exe");
         }
         return processResult; // 0 = OK, != 0 not OK
+    }
+    public static boolean saveVersionInXml(String artifactName) {
+        ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c","java -cp " +
+                "C:\\Users\\m.zmuda-trzebia\\IdeaProjects\\SawaApps\\target" +
+                "\\SawaApps-jar-with-dependencies.jar pl.versions.Main " + artifactName);
+        int processResult = 0;
+        try {
+            Process myProcess = builder.start();
+            myProcess.waitFor();
+            processResult = myProcess.exitValue();
+            return true;
+        }
+        catch(IOException | InterruptedException ie) {
+            System.out.println(StatusColors.ERROR.getAnsiCode() + "Błąd: " + StatusColors.RESET.getAnsiCode()
+                    + " wystąpił błąd podczas próby uruchomienia procesu cmd.exe");
+            return false;
+        }
     }
 }
