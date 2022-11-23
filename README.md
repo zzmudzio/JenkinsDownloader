@@ -1,7 +1,7 @@
 # JenkinsDownloader
 
 This is a simple project that helps me to automate some boring tasks, such as logging into jenkins to download an actual build of the application. 
-I work as a QA, my team is taking care of about 10 applications. I often have to download, download and download next builds of an application. It's a quite boring task so I've decided to create an app that does this for me. Major task of this program is to:
+I work as a QA, my team is taking care of about 10 applications. I often have to download, download and download next builds of an application. It's a quite boring task so I've decided to create an app that does this for me. Major tasks of this program are:
 <ul>
 <li>sign in into jenkins with credentials which I provide during the code execution</li>
 <li>find an app which name I've provided,</li>
