@@ -14,6 +14,12 @@ The process of saving data into xml file is performed by my other app, using JAX
 
 I want to have a control of which build I currently use so I store the information inside xml file. It is impossible to remember that when having about 10 apps, each in different version. The xml file can be read both using my second program and just e.g. IE. 
 
+Example file structure: 
+
+![xmlFileStructure](https://user-images.githubusercontent.com/99602564/203615647-e12fb37a-8ab4-42f8-b751-469a43a12d72.png)
+
+The amount of apps is fixed, only data inside appVersion and appVersionDate tags changes. 
+
 The current project structure is as shown below: 
 
 ![projectStructure](https://user-images.githubusercontent.com/99602564/203613859-af450bfb-f4a9-4dea-affa-900fa8f1691b.png)
