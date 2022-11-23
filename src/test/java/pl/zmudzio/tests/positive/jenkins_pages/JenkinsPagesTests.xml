@@ -1,8 +1,10 @@
 <suite name="Jenkins Downloader Testing">
     <test name="Config classes testing." >
+        <parameter name="login" value="loginHere" />
+        <parameter name="password" value="passwordHere" />
+        <parameter name="pageAddress" value="jenkinsPageAddressHere" />
         <classes>
-            <!-- <class name=""/>
-            <class name=""/> -->
+            <class name="pl.zmudzio.tests.positive.jenkins_pages.JenkinsJobPageTest"/>
         </classes>
     </test>
 </suite>
